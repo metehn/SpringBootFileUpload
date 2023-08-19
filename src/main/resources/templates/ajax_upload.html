@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AJAX Dosya Yükleme</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<h2>AJAX Dosya Yükleme</h2>
+
+<input type="file" id="fileInput" />
+<input type="text" id="descriptionInput" placeholder="Açıklama (max 100 karakter)" />
+<button id="uploadButton">Yükle</button>
+
+<div id="message" style="margin-top: 10px;"></div>
+
+<script>
+    $(document).ready(function() {
+        $("#uploadButton").click(function() {
+            var file = $("#fileInput")[0].files[0];
+            var description = $("#descriptionInput").val();
+
+            var formData = new FormData();
+            formData.append("file", file);
+            formData.append("description", description);
+
+            $.ajax({
+                url: "/file/upload-ajax", // Sunucu tarafındaki işlemi yönlendiren URL
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    $("#message").text(data);
+                },
+                error: function(xhr, status, error) {
+                    $("#message").text("Dosya yükleme hatası: " + xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

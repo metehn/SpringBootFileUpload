@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dosya Yükleme</title>
+</head>
+<body>
+<h2>Dosya Yükleme</h2>
+<form action="/file/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" />
+    <input type="text" name="description" placeholder="Açıklama (max 100 karakter)" />
+    <button type="submit">Yükle</button>
+</form>
+
+<div th:if="${message}" th:text="${message}" style="margin-top: 10px;"></div>
+<div th:if="${message eq 'Lütfen bir dosya seçin.'}" style="color: red;">Dosya Seçilmedi</div>
+</body>
+</html>
